@@ -1,57 +1,79 @@
-// Display today's day and date
-var todayDate = moment().format('dddd, MMM Do YYYY');
-$("#currentDay").html(todayDate);
+$(function() {
 
-$(document).ready(function () {
-    // saveBtn click listener 
-    $(".saveBtn").on("click", function () {
-        // Get nearby values of the description in JQuery
-        var text = $(this).siblings(".description").val();
-        var time = $(this).parent().attr("id");
-
-        // Save text in local storage
-        localStorage.setItem(time, text);
-    })
-   
-    function timeTracker() {
-        //get current number of hours.
-        var timeNow = moment().hour();
-
-        // loop over time blocks
-        $(".time-block").each(function () {
-            var blockTime = parseInt($(this).attr("id").split("hour")[1]);
-
-            // To check the time and add the classes for background indicators
-            if (blockTime < timeNow) {
-                $(this).removeClass("future");
-                $(this).removeClass("present");
-                $(this).addClass("past");
+    // Adding current date to the jumbotron.
+    $("#currentDay").text(moment().format("MMMM Do YYYY"));
+    
+    
+    let description = $(".description");
+    let saveButton = $(".saveBtn");
+    let currentHour = moment().hour();
+    
+    console.log(currentHour);
+    console.log(typeof currentHour);
+    
+    
+    // Color coding the time blocks using each and comparing the moment current time (currentHour) to the id attribute assigned to the textarea.
+    description.each(function () {
+        let timeBlock = parseInt($(this).attr("id"));
+    
+        if (timeBlock === currentHour) {
+            $(this).addClass("present");
+            $(this).removeClass("future");
+            $(this).removeClass("past");
+        }
+        else if (timeBlock < currentHour) {
+            $(this).addClass("past");
+            $(this).removeClass("future");
+            $(this).removeClass("present");
+        }
+        else {
+            $(this).addClass("future");
+            $(this).removeClass("past");
+            $(this).removeClass("present");
+        }
+    });
+    
+    // Using .each function in order to populate tasks that have been saved in local storage to the appropriate row upon loading the browser. 
+    
+    description.each(function() {
+    
+        for (let i = 0; i < localStorage.length; i++) {
+            let objectKey = localStorage.key(i);
+            let taskValue = localStorage.getItem(objectKey);
+            let rowHour = $(this).siblings(".hour").text();
+            
+            console.log(rowHour);
+            console.log(typeof rowHour);
+            console.log(objectKey);
+            console.log(typeof objectKey);
+            console.log(taskValue);
+            console.log(typeof taskValue);
+           
+            if (objectKey === rowHour) {
+                $(this).val(taskValue);
             }
-            else if (blockTime === timeNow) {
-                $(this).removeClass("past");
-                $(this).removeClass("future");
-                $(this).addClass("present");
-            }
-            else {
-                $(this).removeClass("present");
-                $(this).removeClass("past");
-                $(this).addClass("future");
-
-            }
-        })
+           
+        }
+    });
+    
+    // Function to save task input once the save button is clicked. 
+    function saveTasks () {
+        let currentTime = $(this).data("hour");
+        let rowHour = $(this).siblings(".hour").text();
+        let task = $(this).siblings(".description").val();
+    
+        console.log(currentTime);
+        console.log(rowHour);
+        console.log(task);
+    
+        if (task === "") {
+            localStorage.setItem(rowHour, "");
+        }
+        else {
+            localStorage.setItem(rowHour, task);
+        }
     }
-
-    // Get item from local storage if any
-    $("#hour8 .description").val(localStorage.getItem("hour8"));
-    $("#hour9 .description").val(localStorage.getItem("hour9"));
-    $("#hour10 .description").val(localStorage.getItem("hour10"));
-    $("#hour11 .description").val(localStorage.getItem("hour11"));
-    $("#hour12 .description").val(localStorage.getItem("hour12"));
-    $("#hour13 .description").val(localStorage.getItem("hour13"));
-    $("#hour14 .description").val(localStorage.getItem("hour14"));
-    $("#hour15 .description").val(localStorage.getItem("hour15"));
-    $("#hour16 .description").val(localStorage.getItem("hour16"));
-    $("#hour17 .description").val(localStorage.getItem("hour17"));
-
-    timeTracker();
-})
+    
+    saveButton.on("click", saveTasks);
+    
+    });

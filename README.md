@@ -1,4 +1,4 @@
-# 05 Third-Party APIs: Work Day Scheduler
+# 0Shuai-s-Assignment-5: Work Day Scheduler
 
 Create a simple calendar application that allows the user to save events for each hour of the day. This app will run in the browser and feature dynamically updated HTML and CSS powered by jQuery.
 
@@ -32,7 +32,14 @@ THEN the saved events persist
 
 The following animation demonstrates the application functionality:
 
-![Work Day Scheduler app with color-coded time slots shows a new event being typed in the 5PM slot.](./Assets/05-third-party-apis-homework-demo.gif)
+![Work Day Scheduler app with color-coded time slots shows a new event being typed in the 5PM slot.](./Assets/img/05-third-party-apis-homework-demo.gif)
+
+## 💡💡💡Finished work
+
+* [The Link of the deployed application.]( https://zwind66.github.io/Shuai-s-Assignment-5/)
+
+* [The Link of the GitHub repository.]( https://github.com/zwind66/Shuai-s-Assignment-5.git)
+
 
 ## Review
 
@@ -43,4 +50,4 @@ You are required to submit the following for review:
 * The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
 
 ---
-© 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+
